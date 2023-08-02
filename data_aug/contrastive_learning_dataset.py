@@ -1,6 +1,8 @@
 from torchvision.transforms import transforms
 from data_aug.gaussian_blur import GaussianBlur
 from torchvision import transforms, datasets
+
+from data_aug.style_transfer import StyleTransfer
 from data_aug.view_generator import ContrastiveLearningViewGenerator
 from exceptions.exceptions import InvalidDatasetSelection
 
@@ -13,12 +15,14 @@ class ContrastiveLearningDataset:
     def get_simclr_pipeline_transform(size, s=1):
         """Return a set of data augmentation transformations as described in the SimCLR paper."""
         color_jitter = transforms.ColorJitter(0.8 * s, 0.8 * s, 0.8 * s, 0.2 * s)
-        data_transforms = transforms.Compose([transforms.RandomResizedCrop(size=size),
-                                              transforms.RandomHorizontalFlip(),
-                                              transforms.RandomApply([color_jitter], p=0.8),
-                                              transforms.RandomGrayscale(p=0.2),
-                                              GaussianBlur(kernel_size=int(0.1 * size)),
-                                              transforms.ToTensor()])
+        data_transforms = transforms.Compose([
+            # transforms.RandomResizedCrop(size=size),
+            #                                   transforms.RandomHorizontalFlip(),
+            #                                   transforms.RandomApply([color_jitter], p=0.8),
+            #                                   transforms.RandomGrayscale(p=0.2),
+            #                                   GaussianBlur(kernel_size=int(0.1 * size)),
+            StyleTransfer(),
+            transforms.ToTensor()])
         return data_transforms
 
     def get_dataset(self, name, n_views):
