@@ -75,10 +75,15 @@ class StyleTransfer(object):
         self.keep_if_exists = keep_if_exists
 
     def __call__(self, img):
-        files = os.listdir(self.style_dir)
-        if not files and not self.keep_if_exists:
-            download_and_extract_dataset(url=self.style_url,
-                                         save_path=self.style_dir)
+        if os.path.exists(self.style_dir):
+            files = os.listdir(self.style_dir)
+            if not files:
+                download_and_extract_dataset(url=self.style_url, save_path=self.style_dir)
+            elif self.keep_if_exists:
+                pass
+        else:
+            download_and_extract_dataset(url=self.style_url, save_path=self.style_dir)
+
         random_image_path = choose_random_image_from_directory(self.style_dir)
         random_style = Image.open(random_image_path).convert("RGB")
         res = eval(img, random_style)
