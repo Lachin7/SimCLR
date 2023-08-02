@@ -34,7 +34,7 @@ main_parser.add_argument("--requires_grad", type=bool, default=True,
 # train_parser.add_argument("--content_folder", type=str, default="/home/hpcuser/ylk-gpu/MIMICNet/train2014/",
 #                           help="the root of content images, the path should point to a folder")
 # train_parser.add_argument("--style_folder", type=str, default="/home/hpcuser/xjtulx/art/",
-#                           help="the root of style images, the path should point to a folder")
+#                           help="the root of style_basic images, the path should point to a folder")
 # train_parser.add_argument("--log_interval", type=int, default=100,
 #                           help="number of images after which the training loss is logged (default: 20000)")
 #
@@ -56,16 +56,16 @@ main_parser.add_argument("--requires_grad", type=bool, default=True,
 # eval_parser.add_argument("--run_folder", type=bool, default=True)
 # eval_parser.add_argument("--content", type=str, default="./content/",
 #                          help="content image you want to stylize")
-# eval_parser.add_argument("--style", type=str, default="./style/",
-#                          help="style image for stylization")
+# eval_parser.add_argument("--style_basic", type=str, default="./style_basic/",
+#                          help="style_basic image for stylization")
 #
 # eval_parser = subparsers.add_parser("eval", help="evaluation mode parser")
 main_parser.add_argument("--training", type=bool, default=False)
 main_parser.add_argument("--run_folder", type=bool, default=True)
 main_parser.add_argument("--content", type=str, default="./content/",
                          help="content image you want to stylize")
-main_parser.add_argument("--style", type=str, default="./style/",
-                         help="style image for stylization")
+main_parser.add_argument("--style_basic", type=str, default="./style_basic/",
+                         help="style_basic image for stylization")
 
 args = main_parser.parse_args()
 
